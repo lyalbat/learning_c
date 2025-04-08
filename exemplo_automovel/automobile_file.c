@@ -46,15 +46,12 @@ int main()
     int input_status = 0;
     printf("Welcome to the automobile program.\n");
 
-    do
+    while (input_status != -1)
     {
-        if (input_status != -1)
-        {
-            automobile = scan_auto(&input_status);
+        automobile = scan_auto(&input_status);
+        if(input_status != -1)
             print_auto(automobile); 
-        }
-
-    } while (input_status != -1);
+    }
     
     return 0;
 }
