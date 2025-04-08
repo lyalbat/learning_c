@@ -43,59 +43,55 @@ void print_auto(auto_t automobile);
 int main()
 {
     auto_t automobile;
-    char choice = 'q';
-    //char t = ' ';
+    int input_status = 0;
+    printf("Welcome to the automobile program.\n");
+
     do
     {
-        printf("Welcome to the automobile program. Type 'q' if you want to exit, otherwise type 'E'\n");
-        scanf(" %c", &choice);
-        /*while (scanf("%c ",&t) != EOF){
-        }*/
-        if (choice != 'q')
+        if (input_status != -1)
         {
-            automobile = scan_auto();
-            print_auto(automobile);   
+            automobile = scan_auto(&input_status);
+            print_auto(automobile); 
         }
 
-    } while (choice != 'q');
-
+    } while (input_status != -1);
+    
     return 0;
 }
 
-date_t scan_date()
+date_t scan_date(int* input_status_p)
 {
     date_t date;
-    //printf("Please write bellow the manufacture date of your car (mm/dd/yy): \n");
-    scanf("%d %d %d",
+    if(scanf("%d %d %d",
         &date.month,
         &date.day,
-        &date.year);
+        &date.year) != 3){
+            *input_status_p = -1;
+        }
     return date;
 }
 
-tank_t scan_tank()
+tank_t scan_tank(int* input_status_p)
 {
     tank_t tank;
-    //printf("Please write the current state of your tank (fuel level and capacity): \n");
-    scanf("%lf %lf",
+    if(scanf("%lf %lf",
         &tank.current_fuel_lvl,
-        &tank.tank_capacity);
+        &tank.tank_capacity) != 2){
+            *input_status_p = -1;
+    }
     return tank;
 }
 
 
-auto_t scan_auto()
+auto_t scan_auto(int* input_status_p)
 {
     auto_t car;
-    //printf("Please write the make of your car: \n");
-    scanf(" %c",&car.make);
-    //printf("Please write the model of your car: \n");
-    scanf(" %c",&car.model);
-    //printf("Please write the odometer read of your car: \n");
-    scanf(" %d",&car.odometer_read);
-    car.manufacture_date = scan_date();
-    car.purchase_date = scan_date();
-    car.gas_tank = scan_tank();
+    if(scanf(" %c  %c  %d",&car.make,&car.model, &car.odometer_read) ==  -1){
+        *input_status_p = -1;
+    }
+    car.manufacture_date = scan_date(input_status_p);
+    car.purchase_date = scan_date(input_status_p);
+    car.gas_tank = scan_tank(input_status_p);
     return car;
 }
 
