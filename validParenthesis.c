@@ -1,8 +1,3 @@
-/*
-  Given an expression as string comprising of opening and closing characters
-  of parentheses - (), curly braces - {} and square brackets - [], we need to 
-  check whether symbols are balanced or not. 
-*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
