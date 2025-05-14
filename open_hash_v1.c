@@ -12,8 +12,8 @@ unsigned int sfold(char *K, int m);
 
 typedef struct node_s
 {
-    char* cpf_t;
-    char* name_t;
+    char cpf_t[12];
+    char name_t[20];
     struct node_s *next;
 } node_t;
 
@@ -25,10 +25,8 @@ typedef struct hash_map_s {
 node_t *create_node(char* key, char* value, node_t *next_node)
 {
     node_t *node = (node_t *)malloc(sizeof(node_t));
-    strcpy(node->cpf_t,key);
-    strcpy(node->cpf_t,key);
-    node->cpf_t = key;
-    node->name_t = value;
+    strcpy(node->cpf_t, key);
+    strcpy(node->name_t, value);
     node->next = next_node;
     return node;
 }
