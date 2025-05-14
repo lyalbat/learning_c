@@ -93,7 +93,7 @@ char* search(hash_map_t* hash_map, char* cpf)
     int h = sfold(cpf, CHOSEN_M);
     node_t* head = hash_map->list_ptrs[h];
     while (head != NULL) {
-        if(head->cpf_t == cpf) {
+        if(strcmp(cpf, head->cpf_t) == 0) {
             print_person(head->cpf_t,head->name_t);
             return head->name_t;
         }
