@@ -5,9 +5,8 @@
 #define MAX_COMMAND 8
 #define MAX_NAME 21
 #define MAX_CPF 15
-#define MAX_ENTRIES 15
+#define MAX_ENTRIES 3
 #define MAX_SLICE 4
-#define CHOSEN_M 1000
 
 unsigned int sfold(char *K, int m);
 
@@ -26,6 +25,8 @@ typedef struct hash_map_s {
 node_t *create_node(char* key, char* value, node_t *next_node)
 {
     node_t *node = (node_t *)malloc(sizeof(node_t));
+    strcpy(node->cpf_t,key);
+    strcpy(node->cpf_t,key);
     node->cpf_t = key;
     node->name_t = value;
     node->next = next_node;
@@ -49,7 +50,7 @@ void print_person(char* cpf, char*nome){
 
 void insert(hash_map_t* dict, char* key, char* value)
 {
-    int h = sfold(key, CHOSEN_M);
+    int h = sfold(key, MAX_ENTRIES);
 
     if (dict->list_ptrs[h] == NULL) { //sem colisao
         print_person(key,value);
@@ -66,7 +67,7 @@ void insert(hash_map_t* dict, char* key, char* value)
 
 void delete(hash_map_t* dict, char* cpf)
 {
-    int h = sfold(cpf, CHOSEN_M);
+    int h = sfold(cpf, MAX_ENTRIES);
 
     node_t* prev_node = NULL;
     node_t* temp = dict->list_ptrs[h];
@@ -90,7 +91,7 @@ void delete(hash_map_t* dict, char* cpf)
 
 char* search(hash_map_t* hash_map, char* cpf)
 {
-    int h = sfold(cpf, CHOSEN_M);
+    int h = sfold(cpf, MAX_ENTRIES);
     node_t* head = hash_map->list_ptrs[h];
     while (head != NULL) {
         if(strcmp(cpf, head->cpf_t) == 0) {
