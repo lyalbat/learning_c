@@ -43,12 +43,18 @@ hash_map_t* create_dictionary()
     return dictionary;
 }
 
+void print_person(char* cpf, char*nome){
+    printf("you found %s (cpf: %s)\n", nome, cpf);
+}
+
 void insert(hash_map_t* dict, char* key, char* value)
 {
     int h = sfold(key, CHOSEN_M);
 
     if (dict->list_ptrs[h] == NULL) { //sem colisao
+        print_person(key,value);
         dict->list_ptrs[h] = create_node(key,value,NULL);
+        print_person(dict->list_ptrs[h]->cpf_t,dict->list_ptrs[h]->name_t);
     }
     else { //com colisao
         node_t* new_node = create_node(key,value,dict->list_ptrs[h]);
@@ -58,7 +64,7 @@ void insert(hash_map_t* dict, char* key, char* value)
     return;
 }
 
-void delete (hash_map_t* dict, char* cpf)
+void delete(hash_map_t* dict, char* cpf)
 {
     int h = sfold(cpf, CHOSEN_M);
 
@@ -87,7 +93,8 @@ char* search(hash_map_t* hash_map, char* cpf)
     int h = sfold(cpf, CHOSEN_M);
     node_t* head = hash_map->list_ptrs[h];
     while (head != NULL) {
-        if(strcmp(cpf, head->cpf_t) == 0) {
+        if(head->cpf_t == cpf) {
+            print_person(head->cpf_t,head->name_t);
             return head->name_t;
         }
         head = head->next;
